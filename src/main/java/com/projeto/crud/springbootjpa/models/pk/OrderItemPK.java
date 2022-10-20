@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Embeddable
 @Data
-public class OrdemItem implements Serializable {
+public class OrderItemPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne

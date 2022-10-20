@@ -12,7 +12,7 @@ import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.services.ProductService;
 
 @RestController
-@RequestMapping("/Product")
+@RequestMapping("/products")
 public class ProductController {
     
     @Autowired

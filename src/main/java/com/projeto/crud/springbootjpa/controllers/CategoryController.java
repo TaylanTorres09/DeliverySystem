@@ -12,7 +12,7 @@ import com.projeto.crud.springbootjpa.models.Category;
 import com.projeto.crud.springbootjpa.services.CategoryService;
 
 @RestController
-@RequestMapping("/Category")
+@RequestMapping("/categories")
 public class CategoryController {
     
     @Autowired

@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.projeto.crud.springbootjpa.models.User;
 import com.projeto.crud.springbootjpa.repositories.UserRepository;
+import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
 import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -32,9 +35,15 @@ public class UserService {
     }
 
     public ResponseEntity<String> deleteUser(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
 
-        return new ResponseEntity<String>("Usuário " + id + "° removido", HttpStatus.OK);
+            return new ResponseEntity<String>("Usuário " + id + "° removido", HttpStatus.OK);   
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public ResponseEntity<?> updateUser(Long id, User updateUser) {

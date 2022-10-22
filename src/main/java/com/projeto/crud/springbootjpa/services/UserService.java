@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.crud.springbootjpa.controllers.exceptions.ResourceExceptionHandler;
 import com.projeto.crud.springbootjpa.models.User;
 import com.projeto.crud.springbootjpa.repositories.UserRepository;
+import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -23,7 +25,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.get();
+        return user.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public ResponseEntity<?> registerUser(User user) {

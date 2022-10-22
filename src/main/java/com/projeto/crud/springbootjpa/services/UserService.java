@@ -30,4 +30,10 @@ public class UserService {
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
     }
 
+    public ResponseEntity<String> deleteUser(Long id) {
+        userRepository.deleteById(id);
+
+        return new ResponseEntity<String>("Usuário " + id + "° removido", HttpStatus.OK);
+    }
+
 }

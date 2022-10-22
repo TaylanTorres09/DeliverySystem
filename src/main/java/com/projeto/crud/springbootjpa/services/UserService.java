@@ -15,6 +15,8 @@ import com.projeto.crud.springbootjpa.repositories.UserRepository;
 import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
 import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
     
@@ -47,14 +49,18 @@ public class UserService {
     }
 
     public ResponseEntity<?> updateUser(Long id, User updateUser) {
-        User user = userRepository.getReferenceById(id);
+        try {
+            User user = userRepository.getReferenceById(id);
 
-        user.setName(updateUser.getName());
-        user.setEmail(updateUser.getEmail());
-        user.setPhone(updateUser.getPhone());
-        user.setPassword(updateUser.getPassword());
+            user.setName(updateUser.getName());
+            user.setEmail(updateUser.getEmail());
+            user.setPhone(updateUser.getPhone());
+            user.setPassword(updateUser.getPassword());
 
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+            return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);   
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
 }

@@ -36,4 +36,15 @@ public class UserService {
         return new ResponseEntity<String>("Usuário " + id + "° removido", HttpStatus.OK);
     }
 
+    public ResponseEntity<?> updateUser(Long id, User updateUser) {
+        User user = userRepository.getReferenceById(id);
+
+        user.setName(updateUser.getName());
+        user.setEmail(updateUser.getEmail());
+        user.setPhone(updateUser.getPhone());
+        user.setPassword(updateUser.getPassword());
+
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    }
+
 }

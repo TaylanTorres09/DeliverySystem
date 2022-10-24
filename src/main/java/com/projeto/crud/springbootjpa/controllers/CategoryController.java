@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +49,19 @@ public class CategoryController {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDto, category);
         return categoryService.registerCategory(category);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCategory(@Valid @RequestBody CategoryDto categoryDto, @PathVariable String id) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDto, category);
+        Long longId = Long.parseLong(id);
+        return categoryService.updateCategory(category, longId);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+        return categoryService.deleteCategory(id);
     }
 
 }

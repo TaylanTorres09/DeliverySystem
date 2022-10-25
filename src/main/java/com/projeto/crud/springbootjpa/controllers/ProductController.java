@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,14 @@ public class ProductController {
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
         return productService.registerProduct(product);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCategory(@Valid @RequestBody ProductDto productDto, @PathVariable String id) {
+        Product product = new Product();
+        BeanUtils.copyProperties(productDto, product);
+        Long longId = Long.parseLong(id);
+        return productService.updateProduct(product, longId);
     }
 
 }

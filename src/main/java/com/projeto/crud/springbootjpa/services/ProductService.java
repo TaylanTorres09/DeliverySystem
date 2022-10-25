@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.repositories.ProductRepository;
+import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -28,6 +29,20 @@ public class ProductService {
 
     public ResponseEntity<?> registerProduct(Product product) {
         return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<?> updateProduct(Product product, Long id) {
+        try {
+            Product prod = productRepository.getReferenceById(id);
+            prod.setName(product.getName());
+            prod.setDescription(product.getDescription());
+            prod.setPrice(product.getPrice());
+            prod.setImgUrl(product.getImgUrl());
+    
+            return new ResponseEntity<Product>(productRepository.save(prod), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
 }

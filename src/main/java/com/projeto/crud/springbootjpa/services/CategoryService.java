@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.projeto.crud.springbootjpa.models.Category;
+import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.repositories.CategoryRepository;
+import com.projeto.crud.springbootjpa.repositories.ProductRepository;
 import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
 import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
@@ -20,6 +22,9 @@ public class CategoryService {
     
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     public List<Category> findAll() {
         return categoryRepository.findAll();

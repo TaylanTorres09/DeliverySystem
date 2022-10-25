@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.crud.springbootjpa.models.Category;
 import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.repositories.ProductRepository;
 import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
@@ -21,6 +22,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -30,8 +34,14 @@ public class ProductService {
         return product.get();
     }
 
-    public ResponseEntity<?> registerProduct(Product product) {
-        return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.CREATED);
+    public ResponseEntity<?> registerProduct(Product product, Long categoryId) {
+        try {
+            Category category = categoryService.findById(categoryId);
+            product.getCategories().add(category);
+            return new ResponseEntity<Product>(productRepository.save(product), HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(categoryId);
+        }
     }
 
     public ResponseEntity<?> updateProduct(Product product, Long id) {

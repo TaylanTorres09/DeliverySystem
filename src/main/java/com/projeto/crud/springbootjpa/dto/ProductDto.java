@@ -1,20 +1,21 @@
 package com.projeto.crud.springbootjpa.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class ProductDto {
     
     @NotBlank
-    private String nameProduct;
+    private String name;
 
     @NotBlank
-    private String descriptionProduct;
+    private String description;
 
-    @NotBlank
-    private Double priceProduct;
-    
-    private String imgUrlProduct;
+    @NotNull
+    private Double price;
+
+    private String imgUrl;
 
 }

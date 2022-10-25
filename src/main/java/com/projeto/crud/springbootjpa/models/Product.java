@@ -51,4 +51,17 @@ public class Product implements Serializable{
         return orders;
     }
 
+    public void addCategory(Category category) {
+        this.categories.add(category);
+        category.getProducts().add(this);
+    }
+
+    public void removeCategory(Long categoryId) {
+        Category category = this.categories.stream().filter(c -> c.getId() == categoryId).findFirst().orElse(null);
+        if (category != null) {
+            this.categories.remove(category);
+            category.getProducts().remove(this);
+        }
+    }
+
 }

@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.repositories.ProductRepository;
+import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
 import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -44,5 +47,20 @@ public class ProductService {
             throw new ResourceNotFoundException(id);
         }
     }
+
+    public ResponseEntity<String> deleteProduct(Long id) {
+        try {
+            productRepository.deleteById(id);
+
+            return new ResponseEntity<String>("Produto " + id + "° removido", HttpStatus.OK);   
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
 
 }

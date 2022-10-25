@@ -52,7 +52,7 @@ public class Product implements Serializable{
     }
 
     public void addCategory(Category category) {
-        getCategories().add(category);
+        this.getCategories().add(category);
         category.getProducts().add(this);
     }
 

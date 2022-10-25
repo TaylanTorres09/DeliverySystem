@@ -2,14 +2,24 @@ package com.projeto.crud.springbootjpa.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.crud.springbootjpa.dto.ProductDto;
 import com.projeto.crud.springbootjpa.models.Product;
 import com.projeto.crud.springbootjpa.services.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/products")
@@ -26,6 +36,17 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product findById(@PathVariable Long id) {
         return productService.findById(id);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<FieldError>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
+        }
+
+        Product product = new Product();
+        BeanUtils.copyProperties(productDto, product);
+        return productService.registerProduct(product);
     }
 
 }

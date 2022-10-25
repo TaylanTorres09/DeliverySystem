@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.crud.springbootjpa.dto.ProductDto;
-import com.projeto.crud.springbootjpa.models.Category;
 import com.projeto.crud.springbootjpa.models.Product;
-import com.projeto.crud.springbootjpa.services.CategoryService;
 import com.projeto.crud.springbootjpa.services.ProductService;
-import com.projeto.crud.springbootjpa.services.exceptions.ResourceNotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -32,9 +29,6 @@ public class ProductController {
     
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private CategoryService categoryService;
 
     @GetMapping
     public List<Product> findAll() {

@@ -40,15 +40,15 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @PostMapping("/register/{categoryId}")
-    public ResponseEntity<?> register(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult, @PathVariable(value = "categoryId") Long categoryId) {
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody ProductDto productDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<FieldError>(bindingResult.getFieldError(), HttpStatus.BAD_REQUEST);
         }
 
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
-        return productService.registerProduct(product, categoryId);
+        return productService.registerProduct(product);
     }
 
     @PutMapping("/update/{id}")

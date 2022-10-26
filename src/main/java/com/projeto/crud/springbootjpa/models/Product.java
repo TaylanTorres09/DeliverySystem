@@ -6,7 +6,9 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,10 +37,6 @@ public class Product implements Serializable{
 
     private String imgUrl;
 
-    @ManyToMany
-    @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
-
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
@@ -49,19 +47,6 @@ public class Product implements Serializable{
             orders.add(orderItem.getOrder());
         }
         return orders;
-    }
-
-    public void addCategory(Category category) {
-        this.getCategories().add(category);
-        category.getProducts().add(this);
-    }
-
-    public void removeCategory(Long categoryId) {
-        Category category = this.categories.stream().filter(c -> c.getId() == categoryId).findFirst().orElse(null);
-        if (category != null) {
-            this.categories.remove(category);
-            category.getProducts().remove(this);
-        }
     }
 
 }

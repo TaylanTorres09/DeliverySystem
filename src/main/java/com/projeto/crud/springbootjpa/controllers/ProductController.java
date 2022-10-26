@@ -52,11 +52,6 @@ public class ProductController {
         return productService.registerProduct(product);
     }
 
-    @PutMapping("/category/{categoryId}/{productId}")
-    public ResponseEntity<?> addCategoryProduct(@PathVariable(value = "categoryId") Long categoryId, @PathVariable(value = "productId") Long productId) {
-        return productService.addCategoryProduct(categoryId, productId);
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateCategory(@Valid @RequestBody ProductDto productDto, @PathVariable String id) {
         Product product = new Product();

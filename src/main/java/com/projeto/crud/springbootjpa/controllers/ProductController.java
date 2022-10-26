@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.crud.springbootjpa.dto.ProductDto;
 import com.projeto.crud.springbootjpa.models.Product;
+import com.projeto.crud.springbootjpa.models.enums.Category;
 import com.projeto.crud.springbootjpa.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -48,6 +49,7 @@ public class ProductController {
 
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
+        product.setCategory(Category.valueOf(productDto.getCategory()));
 
         return productService.registerProduct(product);
     }

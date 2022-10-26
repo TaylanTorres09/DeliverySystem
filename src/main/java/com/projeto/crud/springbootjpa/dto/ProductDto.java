@@ -10,12 +10,11 @@ public class ProductDto {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String description;
-
     @NotNull
     private Double price;
+    
+    private String imgUrl;    
 
-    private String imgUrl;
-
+    @NotBlank
+    private String category;
 }

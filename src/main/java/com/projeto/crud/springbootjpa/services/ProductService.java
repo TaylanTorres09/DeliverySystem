@@ -38,7 +38,6 @@ public class ProductService {
         try {
             Product prod = productRepository.getReferenceById(id);
             prod.setName(product.getName());
-            prod.setDescription(product.getDescription());
             prod.setPrice(product.getPrice());
             prod.setImgUrl(product.getImgUrl());
     

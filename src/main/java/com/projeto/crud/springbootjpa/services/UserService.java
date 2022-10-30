@@ -1,5 +1,6 @@
 package com.projeto.crud.springbootjpa.services;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.crud.springbootjpa.dto.LoginDto;
 import com.projeto.crud.springbootjpa.models.User;
 import com.projeto.crud.springbootjpa.repositories.UserRepository;
 import com.projeto.crud.springbootjpa.services.exceptions.DatabaseException;
@@ -34,6 +37,16 @@ public class UserService {
 
     public ResponseEntity<?> registerUser(User user) {
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<?> loginUser(LoginDto login) {
+        List<User> users = userRepository.findAll();
+        for(User user: users) {
+            if(login.getEmail().equals(user.getEmail()) && login.getPassword().equals(user.getPassword())) {
+                return new ResponseEntity<String>("Login feito com sucesso", HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<String>("Email ou senha incorretos", HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<String> deleteUser(Long id) {

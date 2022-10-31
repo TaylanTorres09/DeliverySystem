@@ -42,6 +42,7 @@ public class OrderController {
         Order order = new Order();
         BeanUtils.copyProperties(orderDto, order);
         order.setOrderStatus(OrderStatus.valueOf(orderDto.getOrderStatus()));
+        order.setProduct(orderDto.getProducts());
         return orderService.registerOrder(order, clientId);
     }
 

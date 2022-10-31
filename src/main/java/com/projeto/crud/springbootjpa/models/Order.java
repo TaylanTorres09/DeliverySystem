@@ -40,11 +40,11 @@ public class Order implements Serializable{
     private Payment payment;
     
     public Double getTotal() {
-        Double sum = 0.0;
+        Double maxValue = !product.isEmpty() ? product.get(0).getPrice() : 0;
         for(Product prod: product) {
-            sum+=prod.getPrice();
+            maxValue = maxValue >= prod.getPrice() ? maxValue : prod.getPrice();
         }
-        return sum;
+        return maxValue;
     }
 
 }

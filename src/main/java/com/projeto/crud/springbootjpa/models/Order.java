@@ -2,7 +2,6 @@ package com.projeto.crud.springbootjpa.models;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;

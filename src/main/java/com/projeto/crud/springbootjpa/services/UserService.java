@@ -41,7 +41,7 @@ public class UserService {
         List<User> users = userRepository.findAll();
         for(User user: users) {
             if(login.getEmail().equals(user.getEmail()) && login.getPassword().equals(user.getPassword())) {
-                return new ResponseEntity<String>("Login feito com sucesso", HttpStatus.OK);
+                return new ResponseEntity<User>(user, HttpStatus.OK);
             }
         }
         return new ResponseEntity<String>("Email ou senha incorretos", HttpStatus.BAD_REQUEST);

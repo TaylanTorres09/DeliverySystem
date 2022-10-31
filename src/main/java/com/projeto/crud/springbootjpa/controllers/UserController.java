@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
+    public User findById(@PathVariable String id) {
         return userService.findById(id);
     }
 
@@ -53,12 +53,12 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         return userService.deleteUser(id);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<?> updateUser(@PathVariable String id, @Valid @RequestBody UserDto userDto) {
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
         return userService.updateUser(id, user);

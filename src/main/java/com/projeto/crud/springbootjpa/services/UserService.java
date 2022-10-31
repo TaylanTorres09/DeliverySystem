@@ -28,7 +28,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Long id) {
+    public User findById(String id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ResourceNotFoundException(id));
     }
@@ -47,7 +47,7 @@ public class UserService {
         return new ResponseEntity<String>("Email ou senha incorretos", HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<String> deleteUser(Long id) {
+    public ResponseEntity<String> deleteUser(String id) {
         try {
             userRepository.deleteById(id);
 
@@ -59,9 +59,9 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> updateUser(Long id, User updateUser) {
+    public ResponseEntity<?> updateUser(String id, User updateUser) {
         try {
-            User user = userRepository.getReferenceById(id);
+            User user = userRepository.findById(id).get();
 
             user.setName(updateUser.getName());
             user.setEmail(updateUser.getEmail());

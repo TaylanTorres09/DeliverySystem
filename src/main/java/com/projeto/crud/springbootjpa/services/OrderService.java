@@ -29,12 +29,12 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order findById(Long id) {
+    public Order findById(String id) {
         Optional<Order> order = orderRepository.findById(id);
         return order.get();
     }
 
-    public ResponseEntity<?> registerOrder(Order order, Long clientId) {
+    public ResponseEntity<?> registerOrder(Order order, String clientId) {
         Order _order = userRepository.findById(clientId).map(user -> {
             order.setClient(user);
             return orderRepository.save(order);
@@ -43,7 +43,7 @@ public class OrderService {
         return new ResponseEntity<>(_order, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<String> deleteOrder(Long id) {
+    public ResponseEntity<String> deleteOrder(String id) {
         try {
             orderRepository.deleteById(id);
 

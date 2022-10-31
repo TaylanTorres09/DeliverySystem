@@ -1,19 +1,28 @@
 package com.projeto.crud.springbootjpa.models;
 
-import org.springframework.stereotype.Component;
+import java.io.Serializable;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
-@Component
-@Data
-public class Product {
+public class Product implements Serializable {
     
-    @NotEmpty
-    private String flavor;
+    private static final long serialVersionUID = 1L;
+    
+    public String flavor;
 
-    @NotNull
-    private Double price;
+    public Double price;
+
+    private Product(){};
+
+    private Product(String flavor, Double price) {
+        this.flavor = flavor;
+        this.price = price;
+    };
+
+    public String getFlavor() {
+        return flavor;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
 
 }

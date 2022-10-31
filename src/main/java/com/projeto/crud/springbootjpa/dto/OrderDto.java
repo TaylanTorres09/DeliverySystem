@@ -1,7 +1,6 @@
 package com.projeto.crud.springbootjpa.dto;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.projeto.crud.springbootjpa.models.Product;
@@ -17,7 +16,6 @@ public class OrderDto {
     @NotBlank
     private String orderStatus;
 
-    @NotBlank
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
     
 }

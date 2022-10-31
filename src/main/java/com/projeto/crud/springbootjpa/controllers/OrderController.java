@@ -33,12 +33,12 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public Order findById(@PathVariable Long id) {
+    public Order findById(@PathVariable String id) {
         return orderService.findById(id);
     }
 
     @PostMapping("/register/{clientId}")
-    public ResponseEntity<?> registerOrder(@Valid @RequestBody OrderDto orderDto, @PathVariable(name = "clientId") Long clientId) {
+    public ResponseEntity<?> registerOrder(@Valid @RequestBody OrderDto orderDto, @PathVariable(name = "clientId") String clientId) {
         Order order = new Order();
         BeanUtils.copyProperties(orderDto, order);
         order.setOrderStatus(OrderStatus.valueOf(orderDto.getOrderStatus()));
@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOrder(@PathVariable String id) {
         return orderService.deleteOrder(id);
     }
 

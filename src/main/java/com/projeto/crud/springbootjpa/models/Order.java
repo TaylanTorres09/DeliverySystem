@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projeto.crud.springbootjpa.models.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
@@ -35,6 +36,7 @@ public class Order implements Serializable{
     @JoinColumn(name = "client_id")
     private User client;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
     

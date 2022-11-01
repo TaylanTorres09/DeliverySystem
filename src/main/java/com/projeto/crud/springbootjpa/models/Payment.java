@@ -6,8 +6,6 @@ import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -22,7 +20,6 @@ public class Payment implements Serializable{
 
     private Instant moment;
 
-    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;

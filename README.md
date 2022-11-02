@@ -2,7 +2,7 @@
 
 ## Descrição Geral
 
-<p>Projeto adaptado com o intuito do estudo do framework Spring Boot.</p>
+Projeto adaptado com o uso do framework [Spring Boot](https://code.visualstudio.com/docs/java/java-spring-boot) e [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
 ### Descrição do projeto:
 
@@ -35,37 +35,14 @@ O projeto consiste em fazer uma api utilizando o [Spring Boot](https://code.visu
 ```
 - Remover: /user/delete/{userId} [Delete]
 
-#### Produtos:
-- Cadastro: /products/register [Post] Abaixo segue request:
-``` Json Body
-{
-    "name": "string",
-    "email": "string",
-    "imgUrl": "string",
-    // FLAVOR (Sabor) ou DRINKS (Bebidas) CategoryEnumType
-    "category": "string",
-}
-```
-- Listar: /products [Get]
-- Listar por Id: /products/{productId} [GET]
-- Atualizar: /products/update/{productId} [PUT] Abaixo segue request:
-``` Json Body
-{
-    "name": "string",
-    "email": "string",
-    "imgUrl": "string",
-    // FLAVOR (Sabor) ou DRINKS (Bebidas) CategoryEnumType
-    "category": "string",
-}
-```
-- Remover: /products/delete/{id} [Delete]
-
 #### Pedidos:
-- Cadastro: /order/register [Post] Abaixo segue request:
+- Cadastro: /order/register/{clientId} [Post] Abaixo segue request:
 ``` Json Body
 {
     // OrderStatus enum type
-    "orderStatus": "string"
+    "orderStatus": "string",
+    // Model Product
+    "products": "Product"[]
 }
 ```
 - Listar: /order [Get]
@@ -79,12 +56,20 @@ O projeto consiste em fazer uma api utilizando o [Spring Boot](https://code.visu
 ```
 - Remover: /order/delete/{id} [Delete]
 
+#### Pagamento:
+- Cadastro: /payment/register/{orderId} [Post]
+
+- listar: /payment [Get]
+
+### Descrição - Executar Api Remotamente:
+- Link deploy: https://api-menupizzaria.herokuapp.com
 
 ### Descrição - Executar Api localmente:
 - Para clonar o projeto: git clone https://github.com/TaylanTorres09/DeliverySystem.git
 - Para Executar o projeto precisasse:
     - Java [JDK](https://www.oracle.com/java/technologies/downloads/#java17). Este projeto está usando a versão 17.
-    - Banco [H2](https://www.h2database.com/html/main.html) utilizado em memória.
+    - Banco [H2](https://www.h2database.com/html/main.html) para testes utilizado em memória.
+    - Banco [MongoDB Atlas](https://www.mongodb.com/atlas/database) para produção.
 
 - Extensões do vscode utilizadas:
     - [Debugger for Java](https://marketplace.visualstudio.com/items?itemName=redhat.java)
@@ -103,7 +88,12 @@ O projeto consiste em fazer uma api utilizando o [Spring Boot](https://code.visu
 
 ### Próximos Passos
 - Criar sessão por usuário.
-- Fazer interfaces no front-end.
 
 ## Autor
-<a href="https://www.linkedin.com/in/taylan-torres" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+<div align="left">
+<h3>Taylan Torres</h3>
+    <img align="left" alt="Jose-Js" height="190" width="190" src="https://avatars.githubusercontent.com/u/53223028?s=400&u=372f84f025ffdfac6b7476aee1a8fc784e06f483&v=4"/>
+</div>
+<div align="left" style="position:absolute; margin-top:195px;">
+    <a href="https://www.linkedin.com/in/taylan-torres" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+</div>
